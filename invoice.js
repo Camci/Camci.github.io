@@ -136,7 +136,6 @@ function prepareList(lst, order) {
   }
   return lst;
 }
-
 function updateInvoice(row) {
   try {
     data.status = '';
@@ -153,9 +152,10 @@ function updateInvoice(row) {
     }
 
     // Add some guidance about columns.
-    const want = new Set(Object.keys(addDemo({})));
+    const want = new Set(['Img', 'PCS', 'KARAT', 'Description', 'Options', 'Weight (GR)', 'Labor/GR', 'Labor', 'Gold', 'Total']);
     const accepted = new Set(['References']);
-    const importance = ['Img', 'PCS', 'KARAT', 'DESCRIPTON', 'Options', 'WEIGHT (GR)', 'LABOR/GR', 'LABOR', 'GOLD', 'TOTAL'];
+    const importance = ['Img', 'PCS', 'KARAT', 'Description', 'Options', 'Weight (GR)', 'Labor/GR', 'Labor', 'Gold', 'Total'];
+
     if (!(row.Due || row.Issued)) {
       const seen = new Set(Object.keys(row).filter(k => k !== 'id' && k !== '_error_'));
       const help = row.Help = {};
@@ -204,6 +204,7 @@ function updateInvoice(row) {
     handleError(err);
   }
 }
+
 
 ready(function() {
   // Update the invoice anytime the document data changes.
@@ -275,3 +276,5 @@ ready(function() {
     updateInvoice({});
   }
 });
+
+
