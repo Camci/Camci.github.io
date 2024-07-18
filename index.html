@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Grist Invoice</title>
+
+    <!-- A template for showing an invoice in a Custom Widget in Grist. -->
+    <!-- Uses Vue.js, moment, and the Grist Plugin API -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.3/vue.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
+    <script src="https://docs.getgrist.com/grist-plugin-api.js"></script>
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+
+    <script src="invoice.js?ver=11"></script>
+    <script src="exampleData.js"></script>
+
+    <link rel="stylesheet" href="invoice.css?ver=17">
+  </head>
+  <body>
+    <div id="app">
+      <div class="status" v-if="status">
+        <template v-if="status === 'waiting'">
+          <p>Waiting for data...</p>
+          <ul>
+            <li v-bind:class="[tableConnected ? 'done' : '']">I need <b>read table</b> access.</li>
+            <li v-bind:class="[haveRows ? 'done' : '']">I need at least one row of data.</li>
+            <li v-bind:class="[rowConnected ? 'done' : '']">I need <b>Select By</b> set.</li>
+          </ul>
+          <p>Examples:</p>
+          <ul>
+            <li><a class="button" href="index.html?demo=1">A filled out invoice</a></li>
+            <li><a class="button" href="index.html?labels=1">A labelled invoice</a></li>
+          </ul>
+        </template>
+        <template v-else>
+          {{ status }}
+        </template>
+      </div>
+      <template v-if="invoice">
+        <div class="top">
+          <div class="block">
+            <div class="header" style="margin-bottom: 15px;">
+              <img src="mc-log.png" width="250" />
+            </div>
+            <div>
+              <div class="meta title">Invoice</div>
+              <div class="info"><span class="meta">ORDER NO</span> #{{ invoice.Number }}</div>
+              <div class="info" v-if="invoice.Issued"><div class="meta date-tag">ORDER DATE</div> {{ invoice.Issued | asDate }}</div>
+            </div>
+
+          </div>
+          
+          <div class="supplier" style="text-align: right;" >
+            <div v-for="business in (invoice.Invoicer ? [invoice.Invoicer] : [])" style=" display: flex;flex-direction: column; gap:5px;">
+              <template v-if="typeof(business) === 'string'">
+                <div class="address newlined">{{ business }}</div>
+              </template>
+              <template v-else>
+                <div class="address" style="display: flex;flex-direction: column; gap: 5px;">
+                  <div class="name">Monaco Chain INC.</div>
+                <div style="font-size: 15px;">54 west 47th Street</div>
+                <div style="font-size: 15px;">Suite 3R</div>
+                <div style="font-size: 15px;">New York, NY, 10036</div>
+                  <div style="font-size: 15px;" class="phone">9145089314</div>
+                  <div style="font-size: 15px;" class="email">ceyda.t@monacochain.com</div>
+                  <div style="font-size: 15px;" class="website"><a v-bind:href="business.Url" style="text-transform: none;">monacochainwholesale.com</a></div>
+                </div>
+              </template>
+            </div>
+          </div>
+        </div>
+        
+        <div class="client" v-for="business in (invoice.Client ? [invoice.Client] : [])">
+          <div class="title">Client</div>
+          <div class="details">
+            <template v-if="typeof(business) === 'string'">
+              <div class="newlined">{{ business }}</div>
+            </template>
+            <template v-else>
+              <div>{{ business.Name }}</div>
+              <template v-if="business.Street1">
+                {{ business.Street1 }},
+              </template>
+              <template v-if="business.Street2">
+                {{ business.Street2 }},
+              </template>
+              {{ business.City }} {{ business.State }} {{ business.Zip }}
+              <template v-if="business.Country">
+                <br />{{ business.Country }}
+              </template>
+            </template>
+          </div>
+        </div>
+
+        <table class="items">
+          <template v-if="!Array.isArray(invoice.Items)">
+            <tr>
+              <th>Description</th>
+              <th class="money">Total</th>
+            </tr>
+            <tr>
+              <td>{{ invoice.Items }}</td>
+              <td class="money">{{ invoice.Total | currency }}</td>
+            </tr>
+          </template>
+          <template v-else>
+            <tr>
+              <th style="font-weight: bold;">IMG</th>
+              <th style="font-weight: bold;" class="number">PCS</th>
+              <th style="font-weight: bold;" class="number">KARAT</th>
+              <th style="font-weight: bold;">Description</th>
+              <th style="font-weight: bold;" class="number">WEIGHT (GR)</th>
+              <th style="font-weight: bold;" class="number">LABOR/GR</th>
+              <th style="font-weight: bold;" class="money">LABOR</th>
+              <th style="font-weight: bold;" class="money">GOLD</th>
+              <th style="font-weight: bold;" class="money">TOTAL</th>
+            </tr>
+            <tr v-for="item in invoice.Items">
+              <td class="img"><img v-bind:src="item.Img" /></td>
+              <td class="number">{{ item.Quantity }}</td>
+              <td class="number">{{ item.Karat }}</td>
+              <td class="item-t">{{ item.Description }}  <br>
+                <small>- {{ item.options }} -</small></td>
+              <td class="money">{{ item.Weight }}</td>
+              <td class="money">{{ item.Labor_Gr | currency }}</td>
+              <td class="money">{{ item.Labor | currency }}</td>
+              <td class="money">{{ item.Gold | currency }}</td>
+              <td class="money">{{ item.Total | currency }}</td>
+            </tr>
+          </template>
+        </table>
+
+
+
+        <div v-for="(overview, karat) in groupedItems" class="overview">
+          <div class="overview-title">{{ karat }} OVERVIEW</div>
+          <div class="overview-items">TOTAL WEIGHT (gr) <span> {{ overview.totalWeight }} </span></div>
+          <div class="overview-items">GOLD/GR <span>$ {{ overview.goldPerGram | round }} </span></div>
+          <div class="overview-items">TOTAL GOLD PRICE <span>$ {{ overview.totalGoldPrice }} </span></div>
+          <div class="overview-items">TOTAL LABOR <span>$ {{ overview.totalLabor }} </span></div>
+          <div class="overview-items last">{{ karat }} TOTAL PRICE <span>$ {{ overview.totalPrice }} </span></div>
+        </div>
+
+        <div style="margin-top: 50px;">
+          <span style="font-weight: bold; font-size:14px;">TERMS & CONDITIONS</span>
+          <p class="note" style="font-size: 12px;">Thank you for your valued business. We greatly value your trust and confidence and sincerely appreciate your loyalty to our business.</p>
+        </div>
+        <template v-for="help in (invoice.Help ? [invoice.Help] : [])">
+          <div class="help">
+            <div class="help-close">
+              Add <span class="column-name">Due</span> or <span class="column-name">Issued</span> date to hide this help.
+            </div>
+            <div class="title">Column information</div>
+            <div class="details">
+              <table>
+                <tr v-for="group in ['recognized', 'expected', 'ignored']">
+                  <td class="key">{{ group }}</td>
+                  <td>
+                    <template v-if="group in help">
+                      <div v-bind:class="['column-name', 'column-' + group]" v-for="col in help[group]">{{col}}</div>
+                    </template>
+                    <template v-else>
+                      &mdash;
+                    </template>
+                  </td>
+                </tr>
+              </table>
+              <template v-if="invoice.SuggestReferencesColumn">
+                <div>For structured address and item information, add a <span class="column-name">References</span> column with this formula:</div>
+                <div>
+                  <pre>RECORD(rec, expand_refs=1)</pre>
+                </div>
+              </template>
+            </div>
+          </div>
+        </template>
+        <div class="print">
+          <a href="javascript:window.print()">Print</a>
+        </div>
+      </template>
+    </div>
+  </body>
+</html>
+
+
+
