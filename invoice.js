@@ -197,7 +197,7 @@ function ready(fn) {
             const img = document.getElementById('the_image');
       
             // Debugging: Log the attachment ID and tokenInfo
-            const id = item.Img[0];  // get an id of an attachment - there could be several
+            const id = `${item.Img.tableId}[[${item.Img.rowIds[0]}]]`;
                                     // in a cell, for this example we just take the first.
             console.log("Attachment id: ", id);
             console.log("tokenInfo: ", tokenInfo);
