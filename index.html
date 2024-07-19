@@ -134,11 +134,11 @@
 
         <div v-for="(overview, karat) in groupedItems" class="overview">
           <div class="overview-title">{{ karat }} OVERVIEW</div>
-          <div class="overview-items">TOTAL WEIGHT (gr) <span> {{ overview.totalWeight }} </span></div>
+          <div class="overview-items">TOTAL WEIGHT (gr) <span> {{ overview.totalWeight | round }} </span></div>
           <div class="overview-items">GOLD/GR <span>$ {{ overview.goldPerGram | round }} </span></div>
-          <div class="overview-items">TOTAL GOLD PRICE <span>$ {{ overview.totalGoldPrice }} </span></div>
-          <div class="overview-items">TOTAL LABOR <span>$ {{ overview.totalLabor }} </span></div>
-          <div class="overview-items last">{{ karat }} TOTAL PRICE <span>$ {{ overview.totalPrice }} </span></div>
+          <div class="overview-items">TOTAL GOLD PRICE <span>$ {{ overview.totalGoldPrice | round }} </span></div>
+          <div class="overview-items">TOTAL LABOR <span>$ {{ overview.totalLabor | round }} </span></div>
+          <div class="overview-items last">{{ karat }} TOTAL PRICE <span>$ {{ overview.totalPrice | round }} </span></div>
         </div>
 
         <div style="margin-top: 50px;">
