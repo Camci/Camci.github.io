@@ -190,23 +190,38 @@ function ready(fn) {
         row.Invoicer.Url = tweakUrl(row.Invoicer.Website);
       }
   
-      // Fetch and display the image for each item
       if (row.Items && Array.isArray(row.Items)) {
         for (const item of row.Items) {
           if (item.Img && Array.isArray(item.Img) && item.Img.length > 0) {
             const tokenInfo = await grist.docApi.getAccessToken({readOnly: true});
             const img = document.getElementById('the_image');
+      
+            // Debugging: Log the attachment ID and tokenInfo
             const id = item.Img[0];  // get an id of an attachment - there could be several
                                     // in a cell, for this example we just take the first.
             console.log("Attachment id: ", id);
             console.log("tokenInfo: ", tokenInfo);
-
+      
             const src = `${tokenInfo.baseUrl}/attachments/${id}/download?auth=${tokenInfo.token}`;
-            img.setAttribute = ('src', src); // Update the item's Img property to the image URL
+      
+            // Debugging: Log the generated src URL
+            console.log("Generated src URL: ", src);
+      
+            // Ensure the img element is found
+            if (img) {
+              console.log("Image element found: ", img);
+              img.setAttribute('src', src); // Update the item's Img property to the image URL
+      
+              // Debugging: Log the updated src attribute
+              console.log("Updated src attribute: ", img.getAttribute('src'));
+            } else {
+              console.log("Image element not found with id 'the_image'");
+            }
+          } else {
+            console.log("Item does not have a valid Img array: ", item);
           }
         }
-      }
-      else {
+      } else {
         console.log("No items");
       }
   
