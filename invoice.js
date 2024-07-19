@@ -291,5 +291,4 @@ function ready(fn) {
     ]});
     grist.onRecord(updateInvoice);
     grist.onRecords(updateInvoice);
-    grist.onState(connectState);
   });
