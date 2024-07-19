@@ -1,5 +1,5 @@
 function ready(fn) {
-    if (document.readyState !== 'loading') {
+    if (document.readyState !== 'loading'){
       fn();
     } else {
       document.addEventListener('DOMContentLoaded', fn);
@@ -9,18 +9,12 @@ function ready(fn) {
   function addDemo(row) {
     if (!row.Issued && !row.Due) {
       for (const key of ['Number', 'Issued', 'Due']) {
-        if (!row[key]) {
-          row[key] = key;
-        }
+        if (!row[key]) { row[key] = key; }
       }
       for (const key of ['Subtotal', 'Deduction', 'Taxes', 'Total']) {
-        if (!(key in row)) {
-          row[key] = key;
-        }
+        if (!(key in row)) { row[key] = key; }
       }
-      if (!('Note' in row)) {
-        row.Note = '(Anything in a Note column goes here)';
-      }
+      if (!('Note' in row)) { row.Note = '(Anything in a Note column goes here)'; }
     }
     if (!row.Invoicer) {
       row.Invoicer = {
@@ -143,7 +137,7 @@ function ready(fn) {
     return lst;
   }
   
-  function updateInvoice(row) {
+  async function updateInvoice(row) {
     try {
       data.status = '';
       if (row === null) {
@@ -196,6 +190,20 @@ function ready(fn) {
         row.Invoicer.Url = tweakUrl(row.Invoicer.Website);
       }
   
+      // Fetch and display the image for each item
+      if (row.Items && Array.isArray(row.Items)) {
+        for (const item of row.Items) {
+          if (item.Img && Array.isArray(item.Img) && item.Img.length > 0) {
+            const tokenInfo = await grist.docApi.getAccessToken({readOnly: true});
+            const img = document.getElementById('the_image');
+            const id = item.Img[0];  // get an id of an attachment - there could be several
+                                    // in a cell, for this example we just take the first.
+            const src = `${tokenInfo.baseUrl}/attachments/${id}/download?auth=${tokenInfo.token}`;
+            item.Img = src; // Update the item's Img property to the image URL
+          }
+        }
+      }
+  
       // Fiddle around with updating Vue (I'm not an expert).
       for (const key of want) {
         Vue.delete(data.invoice, key);
@@ -207,46 +215,36 @@ function ready(fn) {
   
       // Make invoice information available for debugging.
       window.invoice = row;
-      
-      // Call fetchImage to update the image
-      fetchImage(row);
-  
     } catch (err) {
       handleError(err);
     }
   }
   
-  function fetchImage(record) {
-    grist.onRecord(async (record) => {
-      const tokenInfo = await grist.docApi.getAccessToken({ readOnly: true });
-      const img = document.getElementById('the_image');
-      const id = record.Photos[0];  // get an id of an attachment - there could be several in a cell, for this example we just take the first.
-      const src = `${tokenInfo.baseUrl}/attachments/${id}/download?auth=${tokenInfo.token}`;
-      img.setAttribute('src', src);
+  ready(function() {
+    // Update the invoice anytime the document data changes.
+    grist.ready();
+    grist.onRecord(updateInvoice);
+  
+    // Monitor status so we can give user advice.
+    grist.on('message', msg => {
+      // If we are told about a table but not which row to access, check the
+      // number of rows.  Currently if the table is empty, and "select by" is
+      // not set, onRecord() will never be called.
+      if (msg.tableId && !app.rowConnected) {
+        grist.docApi.fetchSelectedTable().then(table => {
+          if (table.id && table.id.length >= 1) {
+            app.haveRows = true;
+          }
+        }).catch(e => console.log(e));
+      }
+      if (msg.tableId) { app.tableConnected = true; }
+      if (msg.tableId && !msg.dataChange) { app.RowConnected = true; }
     });
-  }
   
-  function connectState(state) {
-    try {
-      console.log("STATE = ", state);
-      if (!state) {
-        throw new Error("Please open this page as a widget in a Grist document");
-      }
-      data.tableConnected = !!state.tableId;
-      data.rowConnected = !!state.tableId && !!state.rowId;
-      if (!data.tableConnected) {
-        throw new Error("This page must be used as a widget in a Grist table");
-      }
-      data.haveRows = state.filters && state.filters.length > 0;
-      if (!data.haveRows) {
-        throw new Error("Please add or select some rows in the table");
-      }
-    } catch (err) {
+    Vue.config.errorHandler = function (err, vm, info)  {
       handleError(err);
-    }
-  }
+    };
   
-  ready(() => {
     app = new Vue({
       el: '#app',
       data: data,
@@ -285,10 +283,10 @@ function ready(fn) {
       }
     });
   
-    grist.ready({requiredAccess: 'full', columns: [
-      {name: 'References', type: 'Any'},
-      {name: 'Items', type: 'RefList'},
-    ]});
-    grist.onRecord(updateInvoice);
-    grist.onRecords(updateInvoice);
+    if (document.location.search.includes('demo')) {
+      updateInvoice(exampleData);
+    }
+    if (document.location.search.includes('labels')) {
+      updateInvoice({});
+    }
   });
