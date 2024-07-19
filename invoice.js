@@ -192,7 +192,7 @@ function ready(fn) {
   
       if (row.Items && Array.isArray(row.Items)) {
         for (const item of row.Items) {
-          if (item.Img && Array.isArray(item.Img) && item.Img.length > 0) {
+          if (item.Img ) {
             const tokenInfo = await grist.docApi.getAccessToken({readOnly: true});
             const img = document.getElementById('the_image');
       
