@@ -200,11 +200,14 @@ function ready(fn) {
                                     // in a cell, for this example we just take the first.
             console.log("Attachment id: ", id);
             console.log("tokenInfo: ", tokenInfo);
-            
+
             const src = `${tokenInfo.baseUrl}/attachments/${id}/download?auth=${tokenInfo.token}`;
             img.setAttribute = ('src', src); // Update the item's Img property to the image URL
           }
         }
+      }
+      else {
+        console.log("No items");
       }
   
       // Fiddle around with updating Vue (I'm not an expert).
