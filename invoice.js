@@ -199,7 +199,7 @@ function ready(fn) {
             const id = item.Img[0];  // get an id of an attachment - there could be several
                                     // in a cell, for this example we just take the first.
             const src = `${tokenInfo.baseUrl}/attachments/${id}/download?auth=${tokenInfo.token}`;
-            item.Img = src; // Update the item's Img property to the image URL
+            img.setAttribute = ('src', src); // Update the item's Img property to the image URL
           }
         }
       }
