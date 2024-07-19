@@ -198,6 +198,9 @@ function ready(fn) {
             const img = document.getElementById('the_image');
             const id = item.Img[0];  // get an id of an attachment - there could be several
                                     // in a cell, for this example we just take the first.
+            console.log("Attachment id: ", id);
+            console.log("tokenInfo: ", tokenInfo);
+            
             const src = `${tokenInfo.baseUrl}/attachments/${id}/download?auth=${tokenInfo.token}`;
             img.setAttribute = ('src', src); // Update the item's Img property to the image URL
           }
