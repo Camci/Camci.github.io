@@ -191,7 +191,6 @@ function ready(fn) {
       }
   
       if (row.Items && Array.isArray(row.Items)) {
-        for (const item of row.Items) {
           if (item.Img ) {
             const tokenInfo = await grist.docApi.getAccessToken({readOnly: true});
             const img = document.getElementById('the_image');
@@ -220,7 +219,6 @@ function ready(fn) {
           } else {
             console.log("Item does not have a valid Img array: ", item);
           }
-        }
       } else {
         console.log("No items");
       }
