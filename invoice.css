@@ -315,6 +315,7 @@ div.column-name {
   flex-direction: column;
   width: 120%;
   padding-bottom: 12px;
+  page-break-inside: avoid;
   align-items: flex-start;
   margin-top: 45px;
 }
