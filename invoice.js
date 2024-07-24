@@ -330,6 +330,18 @@ function ready(fn) {
             }
           });
           return orderedGroups;
+        },
+        grandTotalWeight() {
+          return this.invoice.Items.reduce((total, item) => total + item.Weight, 0);
+        },
+        grandTotalGoldPrice() {
+          return this.invoice.Items.reduce((total, item) => total + item.Gold, 0);
+        },
+        grandTotalLabor() {
+          return this.invoice.Items.reduce((total, item) => total + item.Labor, 0);
+        },
+        grandTotalPrice() {
+          return this.invoice.Items.reduce((total, item) => total + item.Total, 0);
         }
       }
     });
