@@ -1,3 +1,5 @@
+const { method } = require("lodash");
+
 function ready(fn) {
     if (document.readyState !== 'loading'){
       fn();
@@ -270,6 +272,7 @@ function ready(fn) {
       }
     });
   } 
+
   ready(function() {
     // Update the invoice anytime the document data changes.
     grist.ready();
@@ -329,6 +332,25 @@ function ready(fn) {
             }
           });
           return orderedGroups;
+        }
+      },
+      methods: {
+        async refreshImages() {
+          try {
+            const items = this.invoice.Items || [];
+            const tokenInfo = await grist.docApi.getAccessToken({ readOnly: true });
+            const imageLoadStatus = {};
+    
+            items.forEach((item, index) => {
+              if (item.Img) {
+                imageLoadStatus[index] = false; // Reset the image load status
+              }
+            });
+    
+            retryLoadingImages(items, imageLoadStatus, tokenInfo);
+          } catch (err) {
+            console.error('Failed to refresh images:', err);
+          }
         }
       }
     });
