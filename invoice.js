@@ -261,11 +261,6 @@ function ready(fn) {
             imageLoadStatus[index] = false;
             console.log(`Failed to load image ${index} on retry, set placeholder.`);
           };
-        // Check if the Description contains 'Earring' or 'Ring' and set the style
-        if (item.Description && (item.Description.includes('Earring') || item.Description.includes('Ring'))) {
-          console.log("HERE IS THE DESCRIPTION", item.Description);
-          img.style.height = '110px';
-        }
         }
       }
     });
