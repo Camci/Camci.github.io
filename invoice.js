@@ -1,5 +1,3 @@
-const { method } = require("lodash");
-
 function ready(fn) {
     if (document.readyState !== 'loading'){
       fn();

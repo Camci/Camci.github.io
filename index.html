@@ -36,19 +36,7 @@
       </div>
       <template v-if="invoice">
         <div class="top">
-          <div class="block">
-            <div class="header" style="margin-bottom: 15px;">
-              <img src="mc-log.png" width="250" />
-            </div>
-            <div>
-              <div class="meta title">Invoice</div>
-              <div class="info"><span class="meta">ORDER NO</span> #{{ invoice.Number }}</div>
-              <div class="info" v-if="invoice.Issued"><div class="meta date-tag">ORDER DATE</div> {{ invoice.Issued | asDate }}</div>
-            </div>
-
-          </div>
-          
-          <div class="supplier" style="text-align: right;" >
+          <div class="supplier" style="text-align: left;" >
             <div v-for="business in (invoice.Invoicer ? [invoice.Invoicer] : [])" style=" display: flex;flex-direction: column; gap:5px;">
               <template v-if="typeof(business) === 'string'">
                 <div class="address newlined">{{ business }}</div>
@@ -64,6 +52,16 @@
                   <div style="font-size: 15px;" class="website"><a v-bind:href="business.Url" style="text-transform: none;">monacochainwholesale.com</a></div>
                 </div>
               </template>
+            </div>
+          </div>
+          <div class="block">
+            <div class="header" style="margin-bottom: 15px;">
+              <img src="mc-log.png" width="250" />
+            </div>
+            <div>
+              <div class="meta title">Invoice</div>
+              <div class="info"><span class="meta">ORDER NO</span> #{{ invoice.Number }}</div>
+              <div class="info" v-if="invoice.Issued"><div class="meta date-tag">ORDER DATE</div> {{ invoice.Issued | asDate }}</div>
             </div>
           </div>
         </div>

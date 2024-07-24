@@ -99,6 +99,7 @@ table.items th {
 
 .client {
   margin-top: 50px !important;
+  text-align: right;
 }
 
 .money, .number, .item-t {
