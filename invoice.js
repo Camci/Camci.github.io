@@ -88,16 +88,7 @@ function ready(fn) {
   Vue.filter('round', function (value) {
     return value.toFixed(2);
   });
-  Vue.filter('thousands', function (value) {
-    if (typeof value !== 'number') {
-      return value;
-    }
-  
-    return value.toLocaleString('en-US', {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    });
-  });
+
   Vue.filter('fallback', function(value, str) {
     if (!value) {
       throw new Error("Please provide column " + str);
@@ -270,6 +261,10 @@ function ready(fn) {
             imageLoadStatus[index] = false;
             console.log(`Failed to load image ${index} on retry, set placeholder.`);
           };
+        // Check if the Description contains 'Earring' or 'Ring' and set the style
+        if (item.Description && (item.Description.includes('Earring') || item.Description.includes('Ring'))) {
+          img.style.height = '110px';
+        }
         }
       }
     });

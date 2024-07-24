@@ -104,9 +104,9 @@
           <template v-else>
             <tr>
               <th style="font-weight: bold;">IMG</th>
-              <th style="font-weight: bold;" class="number">PCS</th>
               <th style="font-weight: bold;" class="number">KARAT</th>
               <th style="font-weight: bold;">Description</th>
+              <th style="font-weight: bold;" class="number">PCS</th>
               <th style="font-weight: bold;" class="number">WEIGHT (GR)</th>
               <th style="font-weight: bold;" class="number">LABOR/GR</th>
               <th style="font-weight: bold;" class="money">LABOR</th>
@@ -116,10 +116,10 @@
             <tr v-for="(item, index) in invoice.Items">
               <td class="img" style="padding:4px;">
                 <img :class="'img-' + index" />
-              <td class="number">{{ item.Quantity }}</td>
               <td class="number">{{ item.Karat }}</td>
               <td class="item-t">{{ item.Description }}  <br>
                 <small>- {{ item.options }} -</small></td>
+              <td class="number">{{ item.Quantity }}</td>
               <td class="money">{{ item.Weight }}</td>
               <td class="money">{{ item.Labor_Gr | currency }}</td>
               <td class="money">{{ item.Labor | currency }}</td>
