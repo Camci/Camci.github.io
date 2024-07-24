@@ -58,7 +58,7 @@ body {
 
 .img img{
   width: auto;
-  height: 54px;
+  height: 50px;
 }
 
 table.items {
@@ -87,6 +87,10 @@ table.items th {
 table.items td {
   background-color: var(--grist-theme-page-panels-main-panel-bg, white);
   padding: 12px 4px 12px 4px;
+  border-right: 1.0px solid lightgray;
+}
+table.items th {
+  border-right: 1.0px solid lightgray;
 }
 
 .client .title, .summary .title, table.items th, .help .title {
