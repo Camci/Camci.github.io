@@ -191,38 +191,17 @@ function ready(fn) {
       }
   
       if (row.Items && Array.isArray(row.Items)) {
-        for (const item of row.Items) {
-          if (item.Img ) {
-            const tokenInfo = await grist.docApi.getAccessToken({readOnly: true});
-            const img = document.getElementById('the_image');
-      
-            console.log("Item has an Img array: ", item.Img);
+        const tokenInfo = await grist.docApi.getAccessToken({ readOnly: true });
+        row.Items.forEach((item, index) => {
+          if (item.Img) {
             const id = item.Img;
-                                    // in a cell, for this example we just take the first.
-            //console.log("Attachment id: ", id);
-            console.log("tokenInfo: ", tokenInfo);
-      
             const src = `${tokenInfo.baseUrl}/attachments/${id}/download?auth=${tokenInfo.token}`;
-      
-            // Debugging: Log the generated src URL
-            console.log("Generated src URL: ", src);
-      
-            // Ensure the img element is found
+            const img = document.querySelector(`.img-${index}`);
             if (img) {
-              console.log("Image element found: ", img);
-              img.setAttribute('src', src); // Update the item's Img property to the image URL
-      
-              // Debugging: Log the updated src attribute
-              console.log("Updated src attribute: ", img.getAttribute('src'));
-            } else {
-              console.log("Image element not found with id 'the_image'");
+              img.setAttribute('src', src);
             }
-          } else {
-            console.log("Item does not have a valid Img array: ", item);
           }
-        }
-      } else {
-        console.log("No items");
+        });
       }
   
       // Fiddle around with updating Vue (I'm not an expert).
