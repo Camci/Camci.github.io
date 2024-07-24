@@ -342,6 +342,10 @@ function ready(fn) {
         },
         grandTotalPrice() {
           return this.invoice.Items.reduce((total, item) => total + item.Total, 0);
+        },
+        formattedTotal() {
+          const total = this.invoice.Fix_Gold_Oz + this.invoice.Premium;
+          return this.total;
         }
       }
     });
