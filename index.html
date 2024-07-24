@@ -135,9 +135,9 @@
           <div class="overview-title">{{ karat }} OVERVIEW</div>
           <div class="overview-items">TOTAL WEIGHT (gr) <span> {{ overview.totalWeight | round }} </span></div>
           <div class="overview-items">GOLD/GR <span>$ {{ overview.goldPerGram | round }} </span></div>
-          <div class="overview-items">TOTAL GOLD PRICE <span>$ {{ overview.totalGoldPrice | round | thousands  }} </span></div>
-          <div class="overview-items">TOTAL LABOR <span>$ {{ overview.totalLabor | round | thousands }} </span></div>
-          <div class="overview-items last">{{ karat }} TOTAL PRICE <span>$ {{ overview.totalPrice | round | thousands  }} </span></div>
+          <div class="overview-items">TOTAL GOLD PRICE <span>$ {{ overview.totalGoldPrice | round | currency }} </span></div>
+          <div class="overview-items">TOTAL LABOR <span>$ {{ overview.totalLabor | round | currency }} </span></div>
+          <div class="overview-items last">{{ karat }} TOTAL PRICE <span>$ {{ overview.totalPrice | round | currency }} </span></div>
         </div>
 
         <div style="margin-top: 50px;">
