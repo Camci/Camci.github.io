@@ -2,8 +2,6 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Grist Invoice</title>
-
     <!-- A template for showing an invoice in a Custom Widget in Grist. -->
     <!-- Uses Vue.js, moment, and the Grist Plugin API -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.3/vue.min.js"></script>
@@ -137,9 +135,9 @@
           <div class="overview-title">{{ karat }} OVERVIEW</div>
           <div class="overview-items">TOTAL WEIGHT (gr) <span> {{ overview.totalWeight | round }} </span></div>
           <div class="overview-items">GOLD/GR <span>$ {{ overview.goldPerGram | round }} </span></div>
-          <div class="overview-items">TOTAL GOLD PRICE <span>$ {{ overview.totalGoldPrice | round }} </span></div>
-          <div class="overview-items">TOTAL LABOR <span>$ {{ overview.totalLabor | round }} </span></div>
-          <div class="overview-items last">{{ karat }} TOTAL PRICE <span>$ {{ overview.totalPrice | round }} </span></div>
+          <div class="overview-items">TOTAL GOLD PRICE <span>$ {{ overview.totalGoldPrice | round | thousands  }} </span></div>
+          <div class="overview-items">TOTAL LABOR <span>$ {{ overview.totalLabor | round | thousands }} </span></div>
+          <div class="overview-items last">{{ karat }} TOTAL PRICE <span>$ {{ overview.totalPrice | round | thousands  }} </span></div>
         </div>
 
         <div style="margin-top: 50px;">
