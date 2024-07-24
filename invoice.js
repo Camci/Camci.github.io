@@ -192,18 +192,39 @@ function ready(fn) {
   
       if (row.Items && Array.isArray(row.Items)) {
         const tokenInfo = await grist.docApi.getAccessToken({ readOnly: true });
+        const imageLoadStatus = {};
+  
         row.Items.forEach((item, index) => {
           if (item.Img) {
             const id = item.Img;
             const src = `${tokenInfo.baseUrl}/attachments/${id}/download?auth=${tokenInfo.token}`;
             const img = document.querySelector(`.img-${index}`);
+  
             if (img) {
               img.setAttribute('src', src);
+  
+              // Track image load status
+              imageLoadStatus[index] = false;
+  
+              img.onload = () => {
+                imageLoadStatus[index] = true;
+                console.log(`Image ${index} loaded successfully.`);
+              };
+  
+              img.onerror = () => {
+                img.setAttribute('src', '/path/to/placeholder.jpg'); // Provide a path to a placeholder image
+                imageLoadStatus[index] = false;
+                console.log(`Failed to load image ${index}, set placeholder.`);
+              };
             }
           }
         });
-      }
   
+        // Check image load status and retry if necessary
+        setTimeout(() => {
+          retryLoadingImages(row.Items, imageLoadStatus, tokenInfo);
+        }, 2000); // Retry after 3 seconds
+      }
       // Fiddle around with updating Vue (I'm not an expert).
       for (const key of want) {
         Vue.delete(data.invoice, key);
@@ -220,6 +241,30 @@ function ready(fn) {
     }
   }
   
+  function retryLoadingImages(items, imageLoadStatus, tokenInfo) {
+    items.forEach((item, index) => {
+      if (!imageLoadStatus[index] && item.Img) {
+        const id = item.Img;
+        const src = `${tokenInfo.baseUrl}/attachments/${id}/download?auth=${tokenInfo.token}`;
+        const img = document.querySelector(`.img-${index}`);
+
+        if (img) {
+          img.setAttribute('src', src);
+
+          img.onload = () => {
+            imageLoadStatus[index] = true;
+            console.log(`Image ${index} loaded successfully on retry.`);
+          };
+
+          img.onerror = () => {
+            img.setAttribute('src', '/path/to/placeholder.jpg'); // Provide a path to a placeholder image
+            imageLoadStatus[index] = false;
+            console.log(`Failed to load image ${index} on retry, set placeholder.`);
+          };
+        }
+      }
+    });
+  } 
   ready(function() {
     // Update the invoice anytime the document data changes.
     grist.ready();
