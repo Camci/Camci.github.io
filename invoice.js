@@ -153,9 +153,9 @@ function ready(fn) {
       }
   
       // Add some guidance about columns.
-      const want = new Set(['Img', 'PCS', 'KARAT', 'Description', 'Options', 'Weight (GR)', 'Labor/GR', 'Labor', 'Gold', 'Total']);
+      const want = new Set(['Img', 'PCS', 'KARAT', 'Description', 'Options', 'Type','Weight (GR)', 'Labor/GR', 'Labor', 'Gold', 'Total']);
       const accepted = new Set(['References']);
-      const importance = ['Img', 'PCS', 'KARAT', 'Description', 'Options', 'Weight (GR)', 'Labor/GR', 'Labor', 'Gold', 'Total'];
+      const importance = ['Img', 'PCS', 'KARAT', 'Description', 'Options', 'Type','Weight (GR)', 'Labor/GR', 'Labor', 'Gold', 'Total'];
   
       if (!(row.Due || row.Issued)) {
         const seen = new Set(Object.keys(row).filter(k => k !== 'id' && k !== '_error_'));
