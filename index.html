@@ -119,7 +119,7 @@
                 <img :class="'img-' + index" :style="item.Type === 'Ring' || item.Type === 'Earring' ? 'height: 110px;' : ''" />
               <td class="number">{{ item.Karat }}</td>
               <td class="item-t">{{ item.Description }}  <br>
-                <small v-if="item.Type !== 'Ring' || item.Type !== 'Earring'" style="font-size: 13px;
+                <small v-if="item.Type !== 'Ring' || item.Type !== 'Earring'" style="font-size: 12px;
   font-weight: bold;" >{{ optionsList(item)[0] }} | {{ optionsList(item)[1] }}</small></td>
               <td class="item-t" id="type">{{ item.Type }}</td>
               <td class="number">{{ item.Quantity }}</td>
