@@ -218,9 +218,7 @@ function ready(fn) {
               };
   
               img.onerror = () => {
-                img.setAttribute('src', '/path/to/placeholder.jpg'); // Provide a path to a placeholder image
                 imageLoadStatus[index] = false;
-                console.log(`Failed to load image ${index}, set placeholder.`);
               };
             }
           }
