@@ -366,7 +366,7 @@ div.column-name {
 
 .overview-item.single {
   flex: none;
-  width: 40%; 
+  width: 45%; 
 }
 
 .overview.grand {
@@ -379,7 +379,7 @@ div.column-name {
   flex-direction: row;
   margin-bottom: 10px;
   font-size: 14px;
-  width: 40%;
+  width: 45%;
   justify-content: space-between;
 }
 
