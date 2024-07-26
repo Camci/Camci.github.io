@@ -352,6 +352,9 @@ function ready(fn) {
         },
         isSingleOverview() {
           return Object.keys(this.groupedItems).length === 1;
+        },
+        wireAccountList() {
+          return this.invoice.Wire_Account ? this.invoice.Wire_Account.split(',') : [];
         }
       }
     });
