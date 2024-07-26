@@ -338,6 +338,16 @@ function ready(fn) {
         grandTotalPrice() {
           return this.invoice.Items.reduce((total, item) => total + item.Total, 0);
         },
+        groupedPayments() {
+          if (!Array.isArray(this.invoice.Payments)) {
+            return [];
+          }
+          return this.invoice.Payments.map(payment => ({
+            Amount: payment[0],
+            Method: payment[1],
+            Date: payment[2] ? new Date(payment[2]) : null
+          }));
+        }
       }
     });
   
