@@ -391,7 +391,7 @@ div.column-name {
 
 .payment-options-title {
   border-bottom: 1px solid black;
-  padding: 0 20px;
+  padding-right: 5px;
   font-weight: bold;
 }
 
