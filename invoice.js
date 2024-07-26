@@ -103,7 +103,13 @@ function ready(fn) {
     const date = moment.utc(value)
     return date.isValid() ? date.format('MMMM DD, YYYY') : value;
   });
-  
+  Vue.filter('asDateM', function(value) {
+    if (typeof(value) === 'number') {
+      value = new Date(value * 1000);
+    }
+    const date = moment.utc(value)
+    return date.isValid() ? date.format('MM/DD/YYYY') : value;
+  });  
   function tweakUrl(url) {
     if (!url) { return url; }
     if (url.toLowerCase().startsWith('http')) {

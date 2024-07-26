@@ -149,9 +149,8 @@
         </div>
         
         <div class="overview payment">
-          <div v-for="payment in groupedPayments" v-if="payment.Method && payment.Method !== '' && payment.Amount !== 0" style="    display: grid;
-    grid-template-columns: repeat(4, 1fr);"> 
-            Payment <span>{{ payment.Date | asDate }}</span>
+          <div v-for="payment in groupedPayments" v-if="payment.Method && payment.Method !== '' && payment.Amount !== 0" class="overview-items" > 
+            Payment <span>{{ payment.Date | asDateM }}</span>
             <span>{{ payment.Method }}</span>
             <span>{{ payment.Amount | currency }}</span>
           </div>
