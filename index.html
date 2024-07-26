@@ -149,13 +149,11 @@
         </div>
         
         <div class="overview payment">
-        <div v-for="payment in groupedPayments" >
-          <div v-if="payment.Method && payment.Method !== '' && payment.Amount !== 0" class="overview-items" > 
+          <div v-for="payment in groupedPayments" v-if="payment.Method && payment.Method !== '' && payment.Amount !== 0" class="overview-items" > 
             Payment <span>{{ payment.Date | asDate }}</span>
             <span>{{ payment.Method }}</span>
             <span>{{ payment.Amount | currency }}</span>
           </div>
-        </div>
         <div class="overview-items last">Balance Due <span>{{ invoice.Balance | currency }} </span></div>
       </div>
         <div style="margin-top: 50px;">
