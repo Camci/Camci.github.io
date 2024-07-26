@@ -374,3 +374,12 @@ div.column-name {
   border-top: 2px solid black;
   padding-top: 45px;
 }
+
+.overview-items.grand {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 10px;
+  font-size: 14px;
+  width: 40%;
+  justify-content: space-between;
+}
