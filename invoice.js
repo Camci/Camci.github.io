@@ -107,9 +107,9 @@ function ready(fn) {
     if (typeof(value) === 'number') {
       value = new Date(value * 1000);
     }
-    const date = moment.utc(value)
-    return date.isValid() ? date.format('MM/DD/YYYY') : value;
-  });  
+    const date = moment.utc(value);
+    return date.isValid() ? date.format('MM/DD/YY') : value;
+  });
   function tweakUrl(url) {
     if (!url) { return url; }
     if (url.toLowerCase().startsWith('http')) {
