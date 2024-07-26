@@ -403,3 +403,8 @@ div.column-name {
   margin-top: 5%;
   padding-bottom: 20px;
 }
+
+.wire_items {
+  margin-bottom: 5%; 
+  font-size: 12px;
+}

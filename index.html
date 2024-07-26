@@ -45,7 +45,7 @@
                 <div class="address" style="display: flex;flex-direction: column; gap: 5px;">
                   <div class="name">Monaco Chain INC.</div>
                 <div style="font-size: 15px;">54 west 47th Street</div>
-                <div style="font-size: 15px;">Suite 3R</div>
+                <div style="font-size: 15px;">Suite 5R</div>
                 <div style="font-size: 15px;">New York, NY, 10036</div>
                   <div style="font-size: 15px;" class="phone">9145089314</div>
                   <div style="font-size: 15px;" class="email">ceyda.t@monacochain.com</div>
@@ -177,14 +177,19 @@
       <div style="display:flex;margin-top: 15px;flex-direction: row;">
         <div class="payment-options" style="border-right: 1px solid black;"><span class="payment-options-title">WIRE</span>
         <div class="wire">
-          <span>{{ wireAccountList[0] }}</span>
-          <span>ACCOUNT #: {{ wireAccountList[1] }}</span>
-          <span>ROUTING #: {{ wireAccountList[2] }} (ELECTRONIC)</span>
-          <span>ROUTING #: {{ wireAccountList[1] }} (WIRES)</span>
-          <span>SWIFT CODE: {{ wireAccountList[3] }}</span>
+          <span class="wire_items" style="font-weight: bold;">{{ wireAccountList[0] }}</span>
+          <span class="wire_items"><span style="font-weight: bold;">ACCOUNT #: </span> {{ wireAccountList[1] }}</span>
+          <span class="wire_items"><span style="font-weight: bold;">ROUTING #: </span> {{ wireAccountList[2] }} (ELECTRONIC)</span>
+          <span class="wire_items"><span style="font-weight: bold;">ROUTING #: </span> {{ wireAccountList[1] }} (WIRES)</span>
+          <span class="wire_items"><span style="font-weight: bold;">SWIFT CODE: </span>{{ wireAccountList[3] }}</span>
         </div>
         </div>
-        <div class="payment-options" style="border-right: 1px solid black;"><span class="payment-options-title">CHECK</span><span>{{ invoice.Check }}</span></div>
+        <div class="payment-options" style="border-right: 1px solid black;">
+          <div class="wire" style="font-size: 13px; margin-left: 5%;">
+            <span class="payment-options-title">CHECK</span>
+            <span>{{ invoice.Check }}</span>
+          </div>
+        </div>
         <div class="payment-options" style="border: none;"><span class="payment-options-title">ZELLE</span><span>{{ invoice.Zelle }}</span></div>
         </div>
 
