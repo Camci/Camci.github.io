@@ -68,21 +68,21 @@
         
         <div class="client" v-for="business in (invoice.Client ? [invoice.Client] : [])">
           <div class="title">Client</div>
-          <div class="details">
+          <div class="details" style="display: flex; flex-direction: column; gap: 5px;">
             <template v-if="typeof(business) === 'string'">
               <div class="newlined">{{ business }}</div>
             </template>
             <template v-else>
-              <div>{{ business.Contact_Name }}</div>
-              <div>{{ business.Business_Name }}</div>
-              <template v-if="business.Street1">
+              <div style="font-size:15px;">{{ business.Contact_Name }}</div>
+              <div style="font-size:15px;">{{ business.Business_Name }}</div>
+              <template v-if="business.Street1" style="font-size:15px;">
                 {{ business.Address_1 }},
               </template>
-              <template v-if="business.Street2">
+              <template v-if="business.Street2" style="font-size:15px;">
                 {{ business.Address_2 }},
               </template>
-              {{ business.City }} {{ business.State }} {{ business.Zip_Code }}
-              <template v-if="business.Country">
+             <span style="font-size:15px;">{{ business.City }}, {{ business.State }}, {{ business.Zip_Code }}</span> 
+              <template v-if="business.Country" style="font-size:15px;">
                 <br />{{ business.Country }}
               </template>
             </template>
