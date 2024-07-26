@@ -167,7 +167,8 @@
             <span style="width:100px;">Payment</span>
             <span style="width:100px;">{{ payment.Date | asDateM }}</span>
             <span style="width:100px;">{{ payment.Method }}</span>
-            <span>{{ payment.Amount | currency }}</span>
+            <span style="text-align: right;
+    width: 85px;">{{ payment.Amount | currency }}</span>
           </div>
         <div class="overview-items grand last">Balance Due <span>{{ invoice.Balance | currency }} </span></div>
       </div>
