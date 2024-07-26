@@ -130,16 +130,16 @@
           </template>
         </table>
         <div style="border: 1px solid black;display: flex;gap: 12%; padding: 10px; page-break-before: always;">
-          <div style="width: 22%; display: flex; flex-direction: column; justify-content: center; align-items: center;"><span>FIX OZ</span> <span>{{ invoice.Fix_Gold_Oz | currency }}</span> </div>
+          <div style="width: 22%; display: flex; flex-direction: column; justify-content: center; align-items: center;"><span style="font-weight: bold;">FIX OZ</span> <span>{{ invoice.Fix_Gold_Oz | currency }}</span> </div>
           <span style="display: flex;
           flex-direction: row;
           justify-content: center;
           align-items: center;
           margin-left: -5%;
           margin-right: -5%;">+</span>
-          <div style="width: 22%; display: flex; flex-direction: column; justify-content: center; align-items: center;"><span>PREMIUM</span> <span>{{ invoice.Premium | currency }}</span> </div>
-          <div style="width: 22%; display: flex; flex-direction: column; justify-content: center; align-items: center;"><span>TOTAL FIX GOLD/OZ</span><span> {{ invoice.Fix_Oz_Total | currency }}</span> </div>
-          <div style="width: 22%; display: flex; flex-direction: column; justify-content: center; align-items: center;"><span>DATE</span><span> {{ invoice.Issued | asDateM }}</span></div>
+          <div style="width: 22%; display: flex; flex-direction: column; justify-content: center; align-items: center;"><span style="font-weight: bold;">PREMIUM</span> <span>{{ invoice.Premium | currency }}</span> </div>
+          <div style="width: 22%; display: flex; flex-direction: column; justify-content: center; align-items: center;"><span style="text-align: center; font-weight: bold;">TOTAL FIX GOLD/OZ</span><span> {{ invoice.Fix_Oz_Total | currency }}</span> </div>
+          <div style="width: 22%; display: flex; flex-direction: column; justify-content: center; align-items: center;"><span style="font-weight: bold;">DATE</span><span> {{ invoice.Issued | asDateM }}</span></div>
         </div>
 
         <div class="overview-grid">
