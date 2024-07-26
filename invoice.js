@@ -344,7 +344,7 @@ function ready(fn) {
           }
           return this.invoice.Payments.map(payment => ({
             Amount: payment[0],
-            Method: payment[1],
+            Method: payment[1][0],
             Date: payment[2] ? new Date(payment[2]) : null
           }));
         }

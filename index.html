@@ -147,14 +147,17 @@
           <div class="overview-items">GRAND TOTAL LABOR <span>{{ grandTotalLabor | currency }} </span></div>
           <div class="overview-items last">GRAND TOTAL PRICE <span>{{ grandTotalPrice | currency }} </span></div>
         </div>
-
-        <div v-for="payment in groupedPayments" class="overview payment">
-          <div class="overview-items">
+        
+        <div class="overview payment">
+        <div v-for="payment in groupedPayments" >
+          <div v-if="payment.Method && payment.Method !== '' && payment.Amount !== 0" class="overview-items" > 
             Payment <span>{{ payment.Date | asDate }}</span>
             <span>{{ payment.Method }}</span>
             <span>{{ payment.Amount | currency }}</span>
           </div>
         </div>
+        <div class="overview-items last">Balance Due <span>{{ invoice.Balance | currency }} </span></div>
+      </div>
         <div style="margin-top: 50px;">
           <span style="font-weight: bold; font-size:14px;">TERMS & CONDITIONS</span>
           <p class="note" style="font-size: 12px;">Thank you for your valued business. We greatly value your trust and confidence and sincerely appreciate your loyalty to our business.</p>
