@@ -263,9 +263,7 @@ function ready(fn) {
           };
 
           img.onerror = () => {
-            img.setAttribute('src', '/path/to/placeholder.jpg'); // Provide a path to a placeholder image
             imageLoadStatus[index] = false;
-            console.log(`Failed to load image ${index} on retry, set placeholder.`);
           };
         }
       }
@@ -353,6 +351,9 @@ function ready(fn) {
             Method: payment[1][0],
             Date: payment[2] ? new Date(payment[2]) : null
           }));
+        },
+        isSingleOverview() {
+          return Object.keys(this.groupedItems).length === 1;
         }
       }
     });

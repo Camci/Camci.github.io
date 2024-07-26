@@ -350,7 +350,8 @@ div.column-name {
 .overview-grid {
   display: flex;
   flex-wrap: wrap;
-  gap: 20px; /* Space between the items */
+  gap: 40px;
+  margin-top: 7%;
 }
 
 .overview-item {
@@ -362,4 +363,14 @@ div.column-name {
   font-size: 20px;
   font-weight: bold;
   text-transform: uppercase;
+}
+
+.overview-item.single {
+  flex: none;
+  width: 40%; 
+}
+
+.overview.grand {
+  border-top: 2px solid black;
+  padding-top: 45px;
 }
