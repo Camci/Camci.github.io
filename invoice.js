@@ -355,6 +355,9 @@ function ready(fn) {
         },
         wireAccountList() {
           return this.invoice.Wire_Account ? this.invoice.Wire_Account.split(',') : [];
+        },
+        optionsList(item) {
+          return item.options ? item.options.split(',') : [];
         }
       }
     });
