@@ -131,15 +131,18 @@
         </table>
         <div style="border: 1px solid black;display: flex;gap: 12%; padding: 10px; page-break-before: always;"><div style="width: 22%">FIX OZ: {{ invoice.Fix_Gold_Oz | currency }} </div><div style="width: 22%">PREMIUM: {{ invoice.Premium | currency }} </div><div style="width: 22%">TOTAL FIX GOLD/OZ: {{ invoice.Fix_Oz_Total | currency }} </div><div style="width: 22%">DATE: </div></div>
 
-        <div v-for="(overview, karat) in groupedItems" class="overview">
-          <div class="overview-title">{{ karat }} OVERVIEW</div>
-          <div class="overview-items">TOTAL WEIGHT (gr) <span> {{ overview.totalWeight | round }} </span></div>
-          <div class="overview-items">GOLD/GR <span>${{ overview.goldPerGram | round }} </span></div>
-          <div class="overview-items">TOTAL GOLD <span>{{ overview.totalGoldPrice | currency }} </span></div>
-          <div class="overview-items">TOTAL LABOR <span>{{ overview.totalLabor | currency }} </span></div>
-          <div class="overview-items last">{{ karat }} TOTAL PRICE <span>{{ overview.totalPrice | currency }} </span></div>
+        <div class="overview-grid">
+          <div v-for="(overview, karat) in groupedItems" :key="karat" class="overview-item">
+            <div class="overview-title">{{ karat }} OVERVIEW</div>
+            <div class="overview-items">TOTAL WEIGHT (gr) <span>{{ overview.totalWeight | round }}</span></div>
+            <div class="overview-items">GOLD/GR <span>${{ overview.goldPerGram | round }}</span></div>
+            <div class="overview-items">TOTAL GOLD <span>{{ overview.totalGoldPrice | currency }}</span></div>
+            <div class="overview-items">TOTAL LABOR <span>{{ overview.totalLabor | currency }}</span></div>
+            <div class="overview-items last">{{ karat }} TOTAL PRICE <span>{{ overview.totalPrice | currency }}</span></div>
+          </div>
         </div>
 
+        
         <div class="overview grand">
           <div class="overview-title">INVOICE GRAND TOTAL</div>
           <div class="overview-items">GRAND TOTAL WEIGHT (gr) <span> {{ grandTotalWeight | round }} </span></div>
@@ -150,8 +153,9 @@
         
         <div class="overview payment">
           <div v-for="payment in groupedPayments" v-if="payment.Method && payment.Method !== '' && payment.Amount !== 0" class="overview-items" > 
-            Payment <span>{{ payment.Date | asDateM }}</span>
-            <span>{{ payment.Method }}</span>
+            <span style="width:100px;">Payment</span>
+            <span style="width:100px;">{{ payment.Date | asDateM }}</span>
+            <span style="width:100px;">{{ payment.Method }}</span>
             <span>{{ payment.Amount | currency }}</span>
           </div>
         <div class="overview-items last">Balance Due <span>{{ invoice.Balance | currency }} </span></div>

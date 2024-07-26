@@ -338,7 +338,7 @@ div.column-name {
   flex-direction: row;
   margin-bottom: 10px;
   font-size: 14px;
-  width: 40%;
+  /*width: 40%; */
   justify-content: space-between;
 }
 
@@ -347,6 +347,16 @@ div.column-name {
   font-weight: bold;
 }
 
+.overview-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px; /* Space between the items */
+}
+
+.overview-item {
+  flex: 1 1 calc(50% - 20px); /* Two items per row, with some space between them */
+  box-sizing: border-box;
+}
 
 .meta.title {
   font-size: 20px;
