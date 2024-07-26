@@ -98,8 +98,7 @@ table.items th {
 }
 
 .client {
-  margin-top: 50px !important;
-  text-align: right;
+  text-align: left;
 }
 
 .money, .number, .item-t {
@@ -387,7 +386,7 @@ div.column-name {
 
 .payment-options {
   flex: 0.33;
-  text-align: center;
+  text-align: left;
 }
 
 .payment-options-title {

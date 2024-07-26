@@ -63,31 +63,32 @@
               <div class="info"><span class="meta">ORDER NO</span> #{{ invoice.Number }}</div>
               <div class="info" v-if="invoice.Issued"><div class="meta date-tag">ORDER DATE</div> {{ invoice.Issued | asDate }}</div>
             </div>
+            <div class="client" v-for="business in (invoice.Client ? [invoice.Client] : [])" style="margin-bottom: 15%;"> 
+              <div class="title" style="margin-left: 0;">Client</div>
+              <div class="details" style="display: flex; flex-direction: column; gap: 5px; font-size:15px; padding: 0;">
+                <template v-if="typeof(business) === 'string'">
+                  <div class="newlined">{{ business }}</div>
+                </template>
+                <template v-else>
+                  <div>{{ business.Contact_Name }}</div>
+                  <div>{{ business.Business_Name }}</div>
+                  <template v-if="business.Street1">
+                    {{ business.Address_1 }},
+                  </template>
+                  <template v-if="business.Street2">
+                    {{ business.Address_2 }},
+                  </template>
+                 <span>{{ business.City }}, {{ business.State }}, {{ business.Zip_Code }}</span> 
+                  <template v-if="business.Country">
+                    <span>{{ business.Country }}</span>
+                  </template>
+                </template>
+              </div>
+            </div>
           </div>
         </div>
         
-        <div class="client" v-for="business in (invoice.Client ? [invoice.Client] : [])">
-          <div class="title">Client</div>
-          <div class="details" style="display: flex; flex-direction: column; gap: 5px; font-size:15px;">
-            <template v-if="typeof(business) === 'string'">
-              <div class="newlined">{{ business }}</div>
-            </template>
-            <template v-else>
-              <div>{{ business.Contact_Name }}</div>
-              <div>{{ business.Business_Name }}</div>
-              <template v-if="business.Street1">
-                {{ business.Address_1 }},
-              </template>
-              <template v-if="business.Street2">
-                {{ business.Address_2 }},
-              </template>
-             <span>{{ business.City }}, {{ business.State }}, {{ business.Zip_Code }}</span> 
-              <template v-if="business.Country">
-                <span>{{ business.Country }}</span>
-              </template>
-            </template>
-          </div>
-        </div>
+
 
         <table class="items">
           <template v-if="!Array.isArray(invoice.Items)">
@@ -181,20 +182,20 @@
           <span class="wire_items" style="font-weight: bold;">{{ wireAccountList[0] }}</span>
           <span class="wire_items"><span style="font-weight: bold;">ACCOUNT #: </span> {{ wireAccountList[1] }}</span>
           <span class="wire_items"><span style="font-weight: bold;">ROUTING #: </span> {{ wireAccountList[2] }} (ELECTRONIC)</span>
-          <span class="wire_items"><span style="font-weight: bold;">ROUTING #: </span> {{ wireAccountList[1] }} (WIRES)</span>
-          <span class="wire_items"><span style="font-weight: bold;">SWIFT CODE: </span>{{ wireAccountList[3] }}</span>
+          <span class="wire_items"><span style="font-weight: bold;">ROUTING #: </span> {{ wireAccountList[3] }} (WIRES)</span>
+          <span class="wire_items"><span style="font-weight: bold;">SWIFT CODE: </span>{{ wireAccountList[4] }}</span>
         </div>
         </div>
         <div class="payment-options" style="border-right: 1px solid black;">
-          <span class="payment-options-title">CHECK</span>
+          <span class="payment-options-title" style="margin-left: 5%;">CHECK</span>
           <div class="wire">
             <span style="font-size: 13px; margin-left: 5%;">{{ invoice.Check }}</span>
           </div>
         </div>
         <div class="payment-options" style="border: none;">
-          <span class="payment-options-title">ZELLE</span>
+          <span class="payment-options-title" style="margin-left: 5%;">ZELLE</span>
           <div class="wire" >
-            <span style="font-size: 13px; margin-left: 5%;">{{ invoice.Zelle }}</span>
+            <span style="font-size: 13px; margin-left: 5%;">Payable to: <br>{{ invoice.Zelle }}</span>
           </div>
           </div>
         </div>
