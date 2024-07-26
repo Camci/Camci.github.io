@@ -383,3 +383,23 @@ div.column-name {
   width: 40%;
   justify-content: space-between;
 }
+
+
+.payment-options {
+  flex: 0.33;
+  text-align: center;
+}
+
+.payment-options-title {
+  border-bottom: 1px solid black;
+  padding: 0 20px;
+  font-weight: bold;
+}
+
+.wire {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  margin-top: 5%;
+  padding-bottom: 20px;
+}

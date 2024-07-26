@@ -172,6 +172,16 @@
           </div>
         <div class="overview-items grand last">Balance Due <span>{{ invoice.Balance | currency }} </span></div>
       </div>
+
+      <span style="border-bottom: 1px solid black;display: block;font-weight: bold;margin-top: 5%;">PAYMENT OPTIONS</span>
+      <div style="display:flex;margin-top: 15px;flex-direction: row;">
+        <div class="payment-options" style="border-right: 1px solid black;"><span class="payment-options-title">WIRE</span>
+        <div class="wire"><span>{{ invoice.Wire_Account[0] }}</span><span>ACCOUNT #: {{ invoice.Wire_Account[1] }}</span><span>ROUTING #: {{ invoice.Wire_Account[2] }} (ELECTRONIC) </span><span>ROUTING #:  {{ invoice.Wire_Account[1] }} (WIRES) </span><span>SWIFT CODE: {{ invoice.Wire_Account[3] }} </span></div>
+        </div>
+        <div class="payment-options" style="border-right: 1px solid black;"><span class="payment-options-title">CHECK</span><span>{{ invoice.Check }}</span></div>
+        <div class="payment-options" style="border: none;"><span class="payment-options-title">ZELLE</span><span>{{ invoice.Zelle }}</span></div>
+        </div>
+
         <div style="margin-top: 50px;">
           <span style="font-weight: bold; font-size:14px;">TERMS & CONDITIONS</span>
           <p class="note" style="font-size: 12px;">Thank you for your valued business. We greatly value your trust and confidence and sincerely appreciate your loyalty to our business.</p>
