@@ -66,7 +66,8 @@ function ready(fn) {
     rowConnected: false,
     haveRows: false,
     imageLoadStatus: {},
-    tokenInfo: {}
+    tokenInfo: {},
+    isPrinting: false
   };
   let app = undefined;
   
