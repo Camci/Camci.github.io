@@ -216,14 +216,78 @@
           </table>
         </div>
 
-        <div class="overview grand" style="width: 800px;">
-          <div class="overview-title">INVOICE GRAND TOTAL</div>
-          <div class="overview-items grand">GRAND TOTAL WEIGHT (gr) <span> {{ grandTotalWeight | round }} </span></div>
-          <div class="overview-items grand">GRAND TOTAL GOLD <span>{{ grandTotalGoldPrice | currency }} </span></div>
-          <div class="overview-items grand">GRAND TOTAL LABOR <span>{{ grandTotalLabor | currency }} </span></div>
-          <div class="overview-items grand last">GRAND TOTAL PRICE <span>{{ grandTotalPrice | currency }} </span></div>
+        <div class="overview-grid">
+
+        <div class="overview-item single">
+          <div class="overview-title" style="width: 800px;">INVOICE GRAND TOTAL</div>
+          <div class="overview-items" style="margin-bottom: 20px;">GRAND TOTAL WEIGHT (gr) <span> {{ grandTotalWeight | round }} </span></div>
+          <div class="overview-items" style="margin-bottom: 20px;">GRAND TOTAL GOLD <span>{{ grandTotalGoldPrice | currency }} </span></div>
+          <div class="overview-items" style="margin-bottom: 20px;">GRAND TOTAL LABOR <span>{{ grandTotalLabor | currency }} </span></div>
+          <div class="overview-items last" style="margin-top: 19px;">GRAND TOTAL PRICE <span>{{ grandTotalPrice | currency }} </span></div>
         </div>
+        <table class="overview-item single" style="font-size: 14px; margin-top: -2%;">
+          <thead>
+            <tr>
+              <th></th>
+              <th></th>
+              <th style="padding-right: 5px;">QTY</th>
+              <th style="padding-right: 0;">WEIGHT</th>
+            </tr>
+          </thead>
+          <tbody style="line-height: 8.15px;">
+            <tr>
+              <td>Necklaces</td>
+              <td></td>
+              <td>{{ grandTotalNecklaceQty }}</td>
+              <td style="
+            padding-right: 0;
+        ">{{ grandTotalNecklaceWeight | round }}</td>
+            </tr>
+            <tr>
+              <td>Bracelets</td>
+              <td></td>
+              <td>{{ grandTotalBraceletQty }}</td>
+              <td style="
+            padding-right: 0;
+        ">{{ grandTotalBraceletWeight | round }}</td>
+            </tr>
+            <tr>
+              <td>Anklets</td>
+              <td></td>
+              <td>{{ grandTotalAnkletQty }}</td>
+              <td style="
+            padding-right: 0;
+        ">{{ grandTotalAnkletWeight | round }}</td>
+            </tr>
+            <tr>
+              <td>Rings</td>
+              <td></td>
+              <td>{{ grandTotalRingQty }} </td>
+              <td style="
+            padding-right: 0;
+        ">{{ grandTotalRingWeight | round }} </td>
+            </tr>
+            <tr>
+              <td>Earrings</td>
+              <td></td>
+              <td>{{ grandTotalEarringQty }}</td>
+              <td style="
+            padding-right: 0;
+        ">{{ grandTotalEarringWeight | round }}</td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr style="
+            height: 18px;
+        ">
+              <td colspan="2" style="padding-left: 0;padding-top: 2px;">GRAND TOTAL</td>
+              <td style="padding-right: 8px;padding-top: 2px;padding-left: 8px;">{{ grandTotalQty }}</td>
+              <td style="padding-right: 0;padding-top: 2px;padding-left: 8px;">{{ grandTotalWeight | round }}</td>
+            </tr>
+          </tfoot>
+        </table>
         
+      </div>
         <div class="overview payment">
           <div v-for="payment in groupedPayments" v-if="payment.Method && payment.Method !== '' && payment.Amount !== 0" class="overview-items" > 
             <span style="width:95px;">Payment</span>
