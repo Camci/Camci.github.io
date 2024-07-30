@@ -408,6 +408,10 @@ div.column-name {
   font-size: 12px;
 }
 
+tr td:last-child {
+  padding-right: 0;
+}
+
 table {
   width: 100%;
   border-collapse: collapse;

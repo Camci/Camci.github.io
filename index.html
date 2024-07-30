@@ -157,13 +157,15 @@
             <thead>
               <tr>
                 <th></th>
-                <th>QTY</th>
-                <th>WEIGHT</th>
+                <th></th>
+                <th style="padding-right: 5px;">QTY</th>
+                <th style="padding-right: 0;">WEIGHT</th>
               </tr>
             </thead>
             <tbody style="line-height: 8.15px;">
               <tr>
                 <td>Necklaces</td>
+                <td></td>
                 <td>{{ overview.NecklaceQty }}</td>
                 <td style="
               padding-right: 0;
@@ -171,6 +173,7 @@
               </tr>
               <tr>
                 <td>Bracelets</td>
+                <td></td>
                 <td>{{ overview.BraceletQty }}</td>
                 <td style="
               padding-right: 0;
@@ -178,6 +181,7 @@
               </tr>
               <tr>
                 <td>Anklets</td>
+                <td></td>
                 <td>{{ overview.AnkletQty }}</td>
                 <td style="
               padding-right: 0;
@@ -185,6 +189,7 @@
               </tr>
               <tr>
                 <td>Rings</td>
+                <td></td>
                 <td>{{ overview.RingQty }} </td>
                 <td style="
               padding-right: 0;
@@ -192,6 +197,7 @@
               </tr>
               <tr>
                 <td>Earrings</td>
+                <td></td>
                 <td>{{ overview.EarringQty }}</td>
                 <td style="
               padding-right: 0;
@@ -212,27 +218,7 @@
             
         </div>
         <style>
-          table {
-            width: 100%;
-            border-collapse: collapse;
-          }
           
-          th, td {
-            padding: 8px;
-            text-align: right;
-          }
-          
-          th:first-child, td:first-child {
-            text-align: left; /* Align text to the left for the first column */
-          }
-          td:first-child { 
-          padding-left: 0;
-          }
-          tfoot td {
-            font-weight: bold;
-            border-top: 1px solid #000;
-            padding-top: 10px;
-          }
           
           .overview-item {
             margin-bottom: 0; /* Remove bottom margin to align with the other table */
