@@ -349,7 +349,7 @@ div.column-name {
 .overview-grid {
   display: flex;
   flex-wrap: wrap;
-  gap: 40px;
+  gap: 80px;
   margin-top: 7%;
 }
 
