@@ -67,7 +67,6 @@ function ready(fn) {
     haveRows: false,
     imageLoadStatus: {},
     tokenInfo: {},
-    isPrinting: false
   };
   let app = undefined;
   
@@ -456,11 +455,28 @@ function ready(fn) {
             }
           });
         },
-        printInvoice() {
-          this.isPrinting = true;
-          window.print();
-          this.isPrinting = false;
+        paginateItems(items) {
+          const firstPageSize = 10;
+          const subsequentPageSize = 11;
+          let paginatedItems = [];
+    
+          if (items.length <= firstPageSize) {
+            paginatedItems.push(items);
+          } else {
+            paginatedItems.push(items.slice(0, firstPageSize));
+            let remainingItems = items.slice(firstPageSize);
+            
+            while (remainingItems.length > 0) {
+              paginatedItems.push(remainingItems.slice(0, subsequentPageSize));
+              remainingItems = remainingItems.slice(subsequentPageSize);
+            }
+          }
+    
+          return paginatedItems;
         }
+      },
+      mounted() {
+        this.paginatedItems = this.paginateItems(this.items);
       }
     });
   

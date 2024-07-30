@@ -89,7 +89,7 @@
         </div>
         
 
-
+        <div v-for="(page, pageIndex) in paginatedItems" :key="pageIndex">
         <table class="items">
           <template v-if="!Array.isArray(invoice.Items)">
             <tr>
@@ -131,6 +131,11 @@
             </tr>
           </template>
         </table>
+        <div v-if="pageIndex < paginatedItems.length - 1" class="page-break"></div>
+      </div>
+
+
+
         <div style="border: 1px solid black;display: flex;gap: 12%; padding: 10px; page-break-before: always;">
           <div style="width: 22%; display: flex; flex-direction: column; justify-content: center; align-items: center;"><span style="font-weight: bold;">FIX OZ</span> <span>{{ invoice.Fix_Gold_Oz | currency }}</span> </div>
           <span style="display: flex;

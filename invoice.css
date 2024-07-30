@@ -323,7 +323,9 @@ div.column-name {
   align-items: flex-start;
   margin-top: 45px;
 }
-
+.page-break {
+  page-break-after: always;
+}
 .overview-title {
   border-bottom: 1px solid black;
   font-size: 16px;
