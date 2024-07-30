@@ -407,3 +407,25 @@ div.column-name {
   margin-bottom: 5%; 
   font-size: 12px;
 }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 8px;
+  text-align: right;
+}
+
+th:first-child, td:first-child {
+  text-align: left; /* Align text to the left for the first column */
+}
+td:first-child { 
+padding-left: 0;
+}
+tfoot td {
+  font-weight: bold;
+  border-top: 1px solid #000;
+  padding-top: 10px;
+}
