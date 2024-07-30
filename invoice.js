@@ -454,6 +454,11 @@ function ready(fn) {
               }
             }
           });
+        },
+        printInvoice() {
+          this.isPrinting = true;
+          window.print();
+          this.isPrinting = false;
         }
       }
     });

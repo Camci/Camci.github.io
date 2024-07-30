@@ -235,7 +235,6 @@
           </div>
         <div class="overview-items grand last" style="width: 37.5%;">Balance Due <span>{{ invoice.Balance | currency }} </span></div>
       </div>
-      <button @click="retryLoadingImagesWithButton">Retry Loading Images</button>
       <span style="border-bottom: 1px solid black;display: block;font-weight: bold;margin-top: 5%;">PAYMENT OPTIONS</span>
       <div style="display:flex;margin-top: 15px;flex-direction: row;">
         <div class="payment-options" style="border-right: 1px solid black;"><span class="payment-options-title">WIRE</span>
@@ -266,8 +265,18 @@
           <p class="note" style="font-size: 12px;">Thank you for your valued business. We greatly value your trust and confidence and sincerely appreciate your loyalty to our business.</p>
         </div>
         <div class="print">
-          <a href="javascript:window.print()">Print</a>
+          <a href="javascript:window.print()" @click="printInvoice">Print</a>
         </div>
+        <button @click="retryLoadingImagesWithButton" :class="{ hidden: isPrinting }" style="position: fixed;
+        left: 2%;
+        top: 5%;
+        display: block;
+        background-color: black;
+        font-size: 14px;
+        text-transform: uppercase;
+        color: white;
+        font-weight: bold;
+        height: 35px;">Retry Loading Images</button>
       </template>
     </div>
   </body>
