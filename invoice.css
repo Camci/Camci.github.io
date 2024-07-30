@@ -353,6 +353,11 @@ div.column-name {
   margin-top: 7%;
 }
 
+.overview-grid .grand {
+  padding-top: 80px;
+  border-top: 3px solid black;
+}
+
 .overview-item {
   flex: 1 1 calc(50% - 20px); /* Two items per row, with some space between them */
   box-sizing: border-box;
