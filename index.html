@@ -208,40 +208,40 @@
               </tr>
             </tfoot>
           </table>
-          <style>
-            table {
-              width: 100%;
-              border-collapse: collapse;
-            }
-            
-            th, td {
-              padding: 8px;
-              text-align: right;
-            }
-            
-            th:first-child, td:first-child {
-              text-align: left; /* Align text to the left for the first column */
-            }
-            td:first-child { 
-            padding-left: 0;
-            }
-            tfoot td {
-              font-weight: bold;
-              border-top: 1px solid #000;
-              padding-top: 10px;
-            }
-            
-            .overview-item {
-              margin-bottom: 0; /* Remove bottom margin to align with the other table */
-            }
-            
-            .single {
-              border: 0; /* Remove any border if necessary */
-            }
-            </style>
+          
             
         </div>
-
+        <style>
+          table {
+            width: 100%;
+            border-collapse: collapse;
+          }
+          
+          th, td {
+            padding: 8px;
+            text-align: right;
+          }
+          
+          th:first-child, td:first-child {
+            text-align: left; /* Align text to the left for the first column */
+          }
+          td:first-child { 
+          padding-left: 0;
+          }
+          tfoot td {
+            font-weight: bold;
+            border-top: 1px solid #000;
+            padding-top: 10px;
+          }
+          
+          .overview-item {
+            margin-bottom: 0; /* Remove bottom margin to align with the other table */
+          }
+          
+          .single {
+            border: 0; /* Remove any border if necessary */
+          }
+          </style>
         <div class="overview grand" style="width: 800px;">
           <div class="overview-title">INVOICE GRAND TOTAL</div>
           <div class="overview-items grand">GRAND TOTAL WEIGHT (gr) <span> {{ grandTotalWeight | round }} </span></div>
