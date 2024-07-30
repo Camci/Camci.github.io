@@ -65,6 +65,8 @@ function ready(fn) {
     tableConnected: false,
     rowConnected: false,
     haveRows: false,
+    imageLoadStatus: {},
+    tokenInfo: {}
   };
   let app = undefined;
   
@@ -197,8 +199,8 @@ function ready(fn) {
       }
   
       if (row.Items && Array.isArray(row.Items)) {
-        const tokenInfo = await grist.docApi.getAccessToken({ readOnly: true });
-        const imageLoadStatus = {};
+        data.tokenInfo = await grist.docApi.getAccessToken({ readOnly: true });
+        data.imageLoadStatus = {};
   
         row.Items.forEach((item, index) => {
           if (item.Img) {
@@ -210,15 +212,15 @@ function ready(fn) {
               img.setAttribute('src', src);
   
               // Track image load status
-              imageLoadStatus[index] = false;
+              data.imageLoadStatus[index] = false;
   
               img.onload = () => {
-                imageLoadStatus[index] = true;
+                data.imageLoadStatus[index] = true;
                 console.log(`Image ${index} loaded successfully.`);
               };
   
               img.onerror = () => {
-                imageLoadStatus[index] = false;
+                data.imageLoadStatus[index] = false;
               };
             }
           }
@@ -226,7 +228,7 @@ function ready(fn) {
   
         // Check image load status and retry if necessary
         setTimeout(() => {
-          retryLoadingImages(row.Items, imageLoadStatus, tokenInfo);
+          retryLoadingImages(row.Items, data.imageLoadStatus, data.tokenInfo);
         }, 2000); // Retry after 3 seconds
       }
       // Fiddle around with updating Vue (I'm not an expert).
@@ -430,6 +432,28 @@ function ready(fn) {
       methods: {
         optionsList(item) {
           return item.options ? item.options.split(',') : [];
+        },
+        retryLoadingImagesWithButton() {
+          this.invoice.Items.forEach((item, index) => {
+            if (!this.imageLoadStatus[index] && item.Img) {
+              const id = item.Img;
+              const src = `${this.tokenInfo.baseUrl}/attachments/${id}/download?auth=${this.tokenInfo.token}`;
+              const img = document.querySelector(`.img-${index}`);
+  
+              if (img) {
+                img.setAttribute('src', src);
+  
+                img.onload = () => {
+                  this.imageLoadStatus[index] = true;
+                  console.log(`Image ${index} loaded successfully on retry.`);
+                };
+  
+                img.onerror = () => {
+                  this.imageLoadStatus[index] = false;
+                };
+              }
+            }
+          });
         }
       }
     });

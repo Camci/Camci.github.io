@@ -224,7 +224,7 @@
           <div class="overview-items grand last">GRAND TOTAL PRICE <span>{{ grandTotalPrice | currency }} </span></div>
         </div>
 
-        
+
         <div class="overview payment">
           <div v-for="payment in groupedPayments" v-if="payment.Method && payment.Method !== '' && payment.Amount !== 0" class="overview-items" > 
             <span style="width:95px;">Payment</span>
@@ -235,7 +235,7 @@
           </div>
         <div class="overview-items grand last" style="width: 37.5%;">Balance Due <span>{{ invoice.Balance | currency }} </span></div>
       </div>
-
+      <button @click="retryLoadingImagesWithButton">Retry Loading Images</button>
       <span style="border-bottom: 1px solid black;display: block;font-weight: bold;margin-top: 5%;">PAYMENT OPTIONS</span>
       <div style="display:flex;margin-top: 15px;flex-direction: row;">
         <div class="payment-options" style="border-right: 1px solid black;"><span class="payment-options-title">WIRE</span>
