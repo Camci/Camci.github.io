@@ -169,7 +169,7 @@
                 <td>{{ overview.NecklaceQty }}</td>
                 <td style="
               padding-right: 0;
-          ">{{ overview.NecklaceWeight }}</td>
+          ">{{ overview.NecklaceWeight | round }}</td>
               </tr>
               <tr>
                 <td>Bracelets</td>
@@ -177,7 +177,7 @@
                 <td>{{ overview.BraceletQty }}</td>
                 <td style="
               padding-right: 0;
-          ">{{ overview.BraceletWeight }}</td>
+          ">{{ overview.BraceletWeight | round }}</td>
               </tr>
               <tr>
                 <td>Anklets</td>
@@ -185,7 +185,7 @@
                 <td>{{ overview.AnkletQty }}</td>
                 <td style="
               padding-right: 0;
-          ">{{ overview.AnkletWeight }}</td>
+          ">{{ overview.AnkletWeight | round }}</td>
               </tr>
               <tr>
                 <td>Rings</td>
@@ -193,7 +193,7 @@
                 <td>{{ overview.RingQty }} </td>
                 <td style="
               padding-right: 0;
-          ">{{ overview.RingWeight }} </td>
+          ">{{ overview.RingWeight | round }} </td>
               </tr>
               <tr>
                 <td>Earrings</td>
@@ -201,7 +201,7 @@
                 <td>{{ overview.EarringQty }}</td>
                 <td style="
               padding-right: 0;
-          ">{{ overview.EarringWeight }}</td>
+          ">{{ overview.EarringWeight | round }}</td>
               </tr>
             </tbody>
             <tfoot>
@@ -210,24 +210,12 @@
           ">
                 <td colspan="2" style="padding-left: 0;padding-top: 2px;">TOTAL</td>
                 <td style="padding-right: 8px;padding-top: 2px;padding-left: 8px;">{{ overview.totalQty }}</td>
-                <td style="padding-right: 0;padding-top: 2px;padding-left: 8px;">{{ overview.totalWeight }}</td>
+                <td style="padding-right: 0;padding-top: 2px;padding-left: 8px;">{{ overview.totalWeight | round }}</td>
               </tr>
             </tfoot>
           </table>
-          
-            
         </div>
-        <style>
-          
-          
-          .overview-item {
-            margin-bottom: 0; /* Remove bottom margin to align with the other table */
-          }
-          
-          .single {
-            border: 0; /* Remove any border if necessary */
-          }
-          </style>
+
         <div class="overview grand" style="width: 800px;">
           <div class="overview-title">INVOICE GRAND TOTAL</div>
           <div class="overview-items grand">GRAND TOTAL WEIGHT (gr) <span> {{ grandTotalWeight | round }} </span></div>
