@@ -146,7 +146,7 @@
 
         <div class="overview-grid" v-for="(overview, karat) in groupedItems" :key="karat">
           <div class="overview-item single">
-            <div class="overview-title">{{ karat }} OVERVIEW</div>
+            <div class="overview-title" style="width: 800px;">{{ karat }} OVERVIEW</div>
             <div class="overview-items">TOTAL WEIGHT (gr) <span>{{ overview.totalWeight | round }}</span></div>
             <div class="overview-items">GOLD/GR <span>${{ overview.goldPerGram | round }}</span></div>
             <div class="overview-items">TOTAL GOLD <span>{{ overview.totalGoldPrice | currency }}</span></div>
