@@ -194,9 +194,6 @@ div.instructions, .newlined, p.note {
   div.print {
     display: none;
   }
-  button.retryImages {
-    display: none;
-  }
 }
 
 div.print {
@@ -325,10 +322,6 @@ div.column-name {
   page-break-inside: avoid;
   align-items: flex-start;
   margin-top: 45px;
-}
-
-.hidden {
-  display: none;
 }
 
 .overview-title {
