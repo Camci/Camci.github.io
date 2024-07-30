@@ -67,6 +67,7 @@ function ready(fn) {
     haveRows: false,
     imageLoadStatus: {},
     tokenInfo: {},
+    paginatedItems : [],
   };
   let app = undefined;
   
@@ -455,28 +456,39 @@ function ready(fn) {
             }
           });
         },
-        paginateItems(items) {
+        paginateItems() {
           const firstPageSize = 10;
           const subsequentPageSize = 11;
-          let paginatedItems = [];
-    
+          const items = this.invoice.Items;
+          this.paginatedItems = [];
+  
           if (items.length <= firstPageSize) {
-            paginatedItems.push(items);
+            this.paginatedItems.push(items);
           } else {
-            paginatedItems.push(items.slice(0, firstPageSize));
+            this.paginatedItems.push(items.slice(0, firstPageSize));
             let remainingItems = items.slice(firstPageSize);
-            
+  
             while (remainingItems.length > 0) {
-              paginatedItems.push(remainingItems.slice(0, subsequentPageSize));
+              this.paginatedItems.push(remainingItems.slice(0, subsequentPageSize));
               remainingItems = remainingItems.slice(subsequentPageSize);
             }
           }
-    
-          return paginatedItems;
+  
+          return this.paginatedItems;
+        }
+      },
+      watch: {
+        'invoice.Items': {
+          handler() {
+            this.paginateItems();
+          },
+          deep: true
         }
       },
       mounted() {
-        this.paginatedItems = this.paginateItems(this.items);
+        if (this.invoice.Items) {
+          this.paginateItems();
+        }
       }
     });
   
