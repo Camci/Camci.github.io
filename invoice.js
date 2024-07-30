@@ -205,7 +205,7 @@ function ready(fn) {
         row.Items.forEach((item, index) => {
           if (item.Img) {
             const id = item.Img;
-            const src = `${tokenInfo.baseUrl}/attachments/${id}/download?auth=${data.tokenInfo.token}`;
+            const src = `${data.tokenInfo.baseUrl}/attachments/${id}/download?auth=${data.tokenInfo.token}`;
             const img = document.querySelector(`.img-${index}`);
   
             if (img) {
