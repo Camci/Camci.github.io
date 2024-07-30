@@ -309,7 +309,18 @@ function ready(fn) {
                   totalGoldPrice: 0,
                   totalLabor: 0,
                   goldPerGram: 0,
-                  totalPrice: 0
+                  totalPrice: 0,
+                  totalQty: 0,
+                  NecklaceQty : 0,
+                  BraceletQty : 0,
+                  AnkletQty: 0,
+                  RingQty: 0,
+                  EarringQty: 0,
+                  NecklaceWeight : 0,
+                  BraceletWeight : 0,
+                  AnkletWeight: 0,
+                  RingWeight: 0,
+                  EarringWeight: 0,
                 };
               }
               groups[karat].totalWeight += item.Weight;
@@ -317,6 +328,32 @@ function ready(fn) {
               groups[karat].totalLabor += item.Labor;
               groups[karat].totalPrice += item.Gold + item.Labor;
               groups[karat].goldPerGram = groups[karat].totalGoldPrice / groups[karat].totalWeight;
+              groups[karat].totalQty += item.Quantity;
+
+              switch (item.Type) {
+                case 'Necklace':
+                  groups[karat].NecklaceQty += item.Quantity;
+                  groups[karat].NecklaceWeight += item.Weight;
+                  break;
+                case 'Bracelet':
+                  groups[karat].BraceletQty += item.Quantity;
+                  groups[karat].BraceletWeight += item.Weight;
+                  break;
+                case 'Anklet':
+                  groups[karat].AnkletQty += item.Quantity;
+                  groups[karat].AnkletWeight += item.Weight;
+                  break;
+                case 'Ring':
+                  groups[karat].RingQty += item.Quantity;
+                  groups[karat].RingWeight += item.Weight;
+                  break;
+                case 'Earring':
+                  groups[karat].EarringQty += item.Quantity;
+                  groups[karat].EarringWeight += item.Weight;
+                  break;
+                default:
+                  break;
+              }
             });
           }
           // Ensure the groups are returned in the desired order
