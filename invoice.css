@@ -194,6 +194,9 @@ div.instructions, .newlined, p.note {
   div.print {
     display: none;
   }
+  button.retryImages {
+    display: none;
+  }
 }
 
 div.print {
