@@ -144,8 +144,8 @@
           <div style="width: 22%; display: flex; flex-direction: column; justify-content: center; align-items: center;"><span style="font-weight: bold;">DATE</span><span> {{ invoice.Issued | asDateM }}</span></div>
         </div>
 
-        <div class="overview-grid">
-          <div v-for="(overview, karat) in groupedItems" :key="karat" :class="overview-item single">
+        <div class="overview-grid" v-for="(overview, karat) in groupedItems" :key="karat">
+          <div class="overview-item single">
             <div class="overview-title">{{ karat }} OVERVIEW</div>
             <div class="overview-items">TOTAL WEIGHT (gr) <span>{{ overview.totalWeight | round }}</span></div>
             <div class="overview-items">GOLD/GR <span>${{ overview.goldPerGram | round }}</span></div>
