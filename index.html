@@ -1,294 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <!-- A template for showing an invoice in a Custom Widget in Grist. -->
-    <!-- Uses Vue.js, moment, and the Grist Plugin API -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.3/vue.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
-    <script src="https://docs.getgrist.com/grist-plugin-api.js"></script>
-    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
-    <script src="https://printjs-4de6.kxcdn.com/print.min.js"></script>
-    <link href='https://printjs-4de6.kxcdn.com/print.min.css' rel='stylesheet'>
-    
-    
-    <script src="invoice.js?ver=11"></script>
-    <script src="exampleData.js"></script>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infosys-Inspired Website</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1>MyCompany</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
 
-    <link rel="stylesheet" href="invoice.css?ver=17">
-  </head>
-  <body>
-    <div id="app">
-      <div class="status" v-if="status">
-        <template v-if="status === 'waiting'">
-          <p>Waiting for data...</p>
-          <ul>
-            <li v-bind:class="[tableConnected ? 'done' : '']">I need <b>read table</b> access.</li>
-            <li v-bind:class="[haveRows ? 'done' : '']">I need at least one row of data.</li>
-            <li v-bind:class="[rowConnected ? 'done' : '']">I need <b>Select By</b> set.</li>
-          </ul>
-          <p>Examples:</p>
-          <ul>
-            <li><a class="button" href="index.html?demo=1">A filled out invoice</a></li>
-            <li><a class="button" href="index.html?labels=1">A labelled invoice</a></li>
-          </ul>
-        </template>
-        <template v-else>
-          {{ status }}
-        </template>
-      </div>
-      <template v-if="invoice">
-        <div class="top">
-          <div class="supplier" style="text-align: left;" >
-            <img style="margin-left: -4%; margin-bottom: 2%;" src="mc-log.png" width="250" />
-            <div v-for="business in (invoice.Invoicer ? [invoice.Invoicer] : [])" style=" display: flex;flex-direction: column; gap:5px;">
-              <template v-if="typeof(business) === 'string'">
-                <div class="address newlined">{{ business }}</div>
-              </template>
-              <template v-else>
-                <div class="address" style="display: flex;flex-direction: column; gap: 5px;">
-                <div style="font-size: 15px;">54 west 47th Street</div>
-                <div style="font-size: 15px;">Suite 5R</div>
-                <div style="font-size: 15px;">New York, NY, 10036</div>
-                  <div style="font-size: 15px;" class="phone">9145089314</div>
-                  <div style="font-size: 15px;" class="email">ceyda.t@monacochain.com</div>
-                  <div style="font-size: 15px;" class="website"><a v-bind:href="business.Url" style="text-transform: none;">monacochainwholesale.com</a></div>
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h2>Welcome to MyCompany</h2>
+            <p>Innovating the future with technology solutions.</p>
+            <a href="#services" class="btn">Learn More</a>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="services">
+        <div class="container">
+            <h2>Our Services</h2>
+            <div class="service-grid">
+                <div class="service-item">
+                    <h3>Consulting</h3>
+                    <p>Providing expert advice to transform your business.</p>
                 </div>
-              </template>
+                <div class="service-item">
+                    <h3>Technology</h3>
+                    <p>Cutting-edge solutions to drive innovation.</p>
+                </div>
+                <div class="service-item">
+                    <h3>Operations</h3>
+                    <p>Streamlining operations for maximum efficiency.</p>
+                </div>
             </div>
-          </div>
-          <div class="block">
-            <div style="margin-top: 64px;">
-              <div class="meta title">Invoice</div>
-              <div class="info"><span class="meta">ORDER NO</span> #{{ invoice.Number }}</div>
-              <div class="info" v-if="invoice.Issued"><div class="meta date-tag">ORDER DATE</div> {{ invoice.Issued | asDate }}</div>
-            </div>
-            <div class="client" v-for="business in (invoice.Client ? [invoice.Client] : [])" style="margin-bottom: 15%;"> 
-              <div class="title" style="margin-left: 0;">Client</div>
-              <div class="details" style="display: flex; flex-direction: column; gap: 5px; font-size:15px; padding: 0;">
-                <template v-if="typeof(business) === 'string'">
-                  <div class="newlined">{{ business }}</div>
-                </template>
-                <template v-else>
-                  <div>{{ business.Contact_Name }}</div>
-                  <div>{{ business.Business_Name }}</div>
-                  <template v-if="business.Street1">
-                    {{ business.Address_1 }},
-                  </template>
-                  <template v-if="business.Street2">
-                    {{ business.Address_2 }},
-                  </template>
-                 <span>{{ business.City }}, {{ business.State }}, {{ business.Zip_Code }}</span> 
-                  <template v-if="business.Country">
-                    <span>{{ business.Country }}</span>
-                  </template>
-                </template>
-              </div>
-            </div>
-          </div>
         </div>
-        
+    </section>
 
-        <div v-for="(page, pageIndex) in paginatedItems" :key="pageIndex">
-        <table class="items">
-          <template v-if="!Array.isArray(invoice.Items)">
-            <tr>
-              <th>Description</th>
-              <th class="money">Total</th>
-            </tr>
-            <tr>
-              <td>{{ invoice.Items }}</td>
-              <td class="money">{{ invoice.Total | currency }}</td>
-            </tr>
-          </template>
-          <template v-else>
-            <tr>
-              <th style="font-weight: bold;">IMG</th>
-              <th style="font-weight: bold;" class="number">KARAT</th>
-              <th style="font-weight: bold;">Description</th>
-              <th style="font-weight: bold;">TYPE</th>
-              <th style="font-weight: bold;" class="number">PCS</th>
-              <th style="font-weight: bold;" class="number">WEIGHT (GR)</th>
-              <th style="font-weight: bold;" class="number">LABOR/GR</th>
-              <th style="font-weight: bold;" class="money">LABOR</th>
-              <th style="font-weight: bold;" class="money">GOLD</th>
-              <th style="font-weight: bold;" class="money">TOTAL</th>
-            </tr>
-            <tr v-for="(item, index) in invoice.Items">
-              <td class="img" style="padding:4px;">
-                <img :class="'img-' + index" :style="item.Type === 'Ring' || item.Type === 'Earring' ? 'height: 110px;' : ''" />
-              <td class="number">{{ item.Karat }}</td>
-              <td class="item-t">{{ item.Description }}  <br>
-                <small v-if="item.Type !== 'Ring' && item.Type !== 'Earring'" style="font-size: 12px;
-  font-weight: bold;" >{{ optionsList(item)[0] }} | {{ optionsList(item)[1] }}</small></td>
-              <td class="item-t" id="type">{{ item.Type }}</td>
-              <td class="number">{{ item.Quantity }}</td>
-              <td class="money">{{ item.Weight }}</td>
-              <td class="money">{{ item.Labor_Gr | currency }}</td>
-              <td class="money">{{ item.Labor | currency }}</td>
-              <td class="money">{{ item.Gold | currency }}</td>
-              <td class="money">{{ item.Total | currency }}</td>
-            </tr>
-          </template>
-        </table>
-        <div v-if="pageIndex < paginatedItems.length - 1" class="page-break"></div>
-      </div>
+    <!-- About Us Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2>About Us</h2>
+            <p>We are a leading global technology services company delivering transformative solutions.</p>
+        </div>
+    </section>
 
-
-
-        <div style="border: 1px solid black;display: flex;gap: 12%; padding: 10px; page-break-before: always;">
-          <div style="width: 22%; display: flex; flex-direction: column; justify-content: center; align-items: center;"><span style="font-weight: bold;">FIX OZ</span> <span>{{ invoice.Fix_Gold_Oz | currency }}</span> </div>
-          <span style="display: flex;
-          flex-direction: row;
-          justify-content: center;
-          align-items: center;
-          margin-left: -5%;
-          margin-right: -5%;">+</span>
-          <div style="width: 22%; display: flex; flex-direction: column; justify-content: center; align-items: center;"><span style="font-weight: bold;">PREMIUM</span> <span>{{ invoice.Premium | currency }}</span> </div>
-          <div style="width: 35%; display: flex; flex-direction: column; justify-content: center; align-items: center;"><span style="text-align: center; font-weight: bold;">TOTAL FIX GOLD/OZ</span><span> {{ invoice.Fix_Oz_Total | currency }}</span> </div>
-          <div style="width: 22%; display: flex; flex-direction: column; justify-content: center; align-items: center;"><span style="font-weight: bold;">DATE</span><span> {{ invoice.Issued | asDateM }}</span></div>
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 MyCompany. All rights reserved.</p>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#about">About Us</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
         </div>
-
-        <div class="overview-grid" v-for="(overview, karat) in groupedItems" :key="karat">
-          <div class="overview-item single">
-            <div class="overview-title" style="width: 800px;">{{ karat }} OVERVIEW</div>
-            <div class="overview-items">TOTAL WEIGHT (gr) <span>{{ overview.totalWeight | round }}</span></div>
-            <div class="overview-items">GOLD/GR <span>${{ overview.goldPerGram | round }}</span></div>
-            <div class="overview-items">TOTAL GOLD <span>{{ overview.totalGoldPrice | currency }}</span></div>
-            <div class="overview-items">TOTAL LABOR <span>{{ overview.totalLabor | currency }}</span></div>
-            <div class="overview-items last">{{ karat }} TOTAL PRICE <span>{{ overview.totalPrice | currency }}</span></div>
-          </div>
-          <table class="overview-item single" style="font-size: 14px; margin-top: -2%;">
-            <thead>
-              <tr>
-                <th></th>
-                <th></th>
-                <th style="padding-right: 5px;">QTY</th>
-                <th style="padding-right: 0;">WEIGHT</th>
-              </tr>
-            </thead>
-            <tbody style="line-height: 8.15px;">
-              <tr>
-                <td>Necklaces</td>
-                <td></td>
-                <td>{{ overview.NecklaceQty }}</td>
-                <td style="
-              padding-right: 0;
-          ">{{ overview.NecklaceWeight | round }}</td>
-              </tr>
-              <tr>
-                <td>Bracelets</td>
-                <td></td>
-                <td>{{ overview.BraceletQty }}</td>
-                <td style="
-              padding-right: 0;
-          ">{{ overview.BraceletWeight | round }}</td>
-              </tr>
-              <tr>
-                <td>Anklets</td>
-                <td></td>
-                <td>{{ overview.AnkletQty }}</td>
-                <td style="
-              padding-right: 0;
-          ">{{ overview.AnkletWeight | round }}</td>
-              </tr>
-              <tr>
-                <td>Rings</td>
-                <td></td>
-                <td>{{ overview.RingQty }} </td>
-                <td style="
-              padding-right: 0;
-          ">{{ overview.RingWeight | round }} </td>
-              </tr>
-              <tr>
-                <td>Earrings</td>
-                <td></td>
-                <td>{{ overview.EarringQty }}</td>
-                <td style="
-              padding-right: 0;
-          ">{{ overview.EarringWeight | round }}</td>
-              </tr>
-            </tbody>
-            <tfoot>
-              <tr style="
-              height: 18px;
-          ">
-                <td colspan="2" style="padding-left: 0;padding-top: 2px;">TOTAL</td>
-                <td style="padding-right: 8px;padding-top: 2px;padding-left: 8px;">{{ overview.totalQty }}</td>
-                <td style="padding-right: 0;padding-top: 2px;padding-left: 8px;">{{ overview.totalWeight | round }}</td>
-              </tr>
-            </tfoot>
-          </table>
-        </div>
-
-        <div class="overview grand" style="width: 800px;">
-          <div class="overview-title">INVOICE GRAND TOTAL</div>
-          <div class="overview-items grand">GRAND TOTAL WEIGHT (gr) <span> {{ grandTotalWeight | round }} </span></div>
-          <div class="overview-items grand">GRAND TOTAL GOLD <span>{{ grandTotalGoldPrice | currency }} </span></div>
-          <div class="overview-items grand">GRAND TOTAL LABOR <span>{{ grandTotalLabor | currency }} </span></div>
-          <div class="overview-items grand last">GRAND TOTAL PRICE <span>{{ grandTotalPrice | currency }} </span></div>
-        </div>
-
-
-        <div class="overview payment">
-          <div v-for="payment in groupedPayments" v-if="payment.Method && payment.Method !== '' && payment.Amount !== 0" class="overview-items" > 
-            <span style="width:95px;">Payment</span>
-            <span style="width:95px;">{{ payment.Date | asDateM }}</span>
-            <span style="width:85px;">{{ payment.Method }}</span>
-            <span style="text-align: right;
-    width: 85px;">{{ payment.Amount | currency }}</span>
-          </div>
-        <div class="overview-items grand last" style="width: 37.5%;">Balance Due <span>{{ invoice.Balance | currency }} </span></div>
-      </div>
-      <span style="border-bottom: 1px solid black;display: block;font-weight: bold;margin-top: 5%;">PAYMENT OPTIONS</span>
-      <div style="display:flex;margin-top: 15px;flex-direction: row;">
-        <div class="payment-options" style="border-right: 1px solid black;"><span class="payment-options-title">WIRE</span>
-        <div class="wire">
-          <span class="wire_items" style="font-weight: bold;">{{ wireAccountList[0] }}</span>
-          <span class="wire_items"><span style="font-weight: bold;">ACCOUNT #: </span> {{ wireAccountList[1] }}</span>
-          <span class="wire_items"><span style="font-weight: bold;">ROUTING #: </span> {{ wireAccountList[2] }} (ELECTRONIC)</span>
-          <span class="wire_items"><span style="font-weight: bold;">ROUTING #: </span> {{ wireAccountList[3] }} (WIRES)</span>
-          <span class="wire_items"><span style="font-weight: bold;">SWIFT CODE: </span>{{ wireAccountList[4] }}</span>
-        </div>
-        </div>
-        <div class="payment-options" style="border-right: 1px solid black;">
-          <span class="payment-options-title" style="margin-left: 5%;">CHECK</span>
-          <div class="wire">
-            <span style="font-size: 13px; margin-left: 5%;">Payable to: <br>{{ invoice.Check }}</span>
-          </div>
-        </div>
-        <div class="payment-options" style="border: none;">
-          <span class="payment-options-title" style="margin-left: 5%;">ZELLE</span>
-          <div class="wire" >
-            <span style="font-size: 13px; margin-left: 5%;">{{ invoice.Zelle }}</span>
-          </div>
-          </div>
-        </div>
-
-        <div style="margin-top: 50px;">
-          <span style="font-weight: bold; font-size:14px;">TERMS & CONDITIONS</span>
-          <p class="note" style="font-size: 12px;">Thank you for your valued business. We greatly value your trust and confidence and sincerely appreciate your loyalty to our business.</p>
-        </div>
-        <div class="print">
-          <a href="javascript:window.print()">Print</a>
-        </div>
-        <div class="print">
-          <button @click="retryLoadingImagesWithButton" style="position: fixed;
-          left: 2%;
-          top: 5%;
-          display: block;
-          background-color: black;
-          font-size: 14px;
-          text-transform: uppercase;
-          color: white;
-          font-weight: bold;
-          height: 35px;">Retry Loading Images</button>
-        </div>
-      
-      </template>
-    </div>
-  </body>
+    </footer>
+</body>
 </html>
-
-
-
